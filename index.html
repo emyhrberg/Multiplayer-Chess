@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>Chess</title>
+
+    <!-- Icon-->
+    <link id="favicon" href="images/white-icon.ico" rel="icon" type="image/x-icon">
+
+    <!-- Import chessboard css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css">
+
+    <!-- Import jquery -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+    <!-- Import chessboard -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.js"></script>
+
+    <!-- Import chess.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+
+    <!-- Import Socket.IO -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script>
+
+  </head>
+
+    <!-- Center stuff-->
+    <body style="display: flex; flex-direction: column; justify-content: flex-start; align-items: center; height: 100vh; margin: 0;">
+
+    <!-- Game status -->
+    <div id="status" style="text-align: center; font-size: 24px; margin-bottom: 20px; margin-top: 20px; font-weight: bold;"> status text </div>
+
+    <!-- Display chess board -->
+    <div id="myBoard" style="width: 500px"></div>
+
+    <!-- Run chess -->
+    <script src="client.js"> </script>
+
+  </body>
+</html>

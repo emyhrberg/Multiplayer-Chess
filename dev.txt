@@ -1,0 +1,12 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Steps for development:
+- Get a chessboard on the screen
+- Get a chess game playing
+- Host a server to play the chess game on
+- Set up client server communication,
+so that all moves are sent to server and updated 
+back at the client side.
+This means one client can play a game and another
+client can be connected to the server and the game will be played there
+- Make it so the other browser is playing the black pieces~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
