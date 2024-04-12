@@ -1,0 +1,35 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Steps for development:
+1 Get a chessboard on the screen
+2 Get a chess game playing
+3 Host a server to play the chess game on
+4 Set up client server communication,
+so that all moves are sent to server and updated 
+back at the client side.
+This means one client can play a game and another
+client can be connected to the server and the game will be played there
+5 Make it so the other browser is playing the black pieces
+6 Add time to both players
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Libs/Frameworks used:
+- Chessboard.js for UI
+- Chess.js for backend chess logic like move validation
+- Socket.io (for network communication)
+- Express (for hosting a server)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Client-Server Communication Breakdown
+1. Client1 connects to the server and sends initialization data.
+2. The server processes incoming data and updates the game state accordingly.
+3. Client2 connects, and the server repeats the update process.
+4. Data Broadcasting: The server sends the current game state back to all connected clients whenever there is an update.
+5. Clients receive updates from the server. The client adjusts the board display based on whether they are playing as white or black (flipping the board for black).
+6. When a player makes a move, the move is sent to the server, which then broadcasts it to the other player to update their board in real-time.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Files explanation:
+server.js host the server and listens to sockets
+index.html is the webpage where the game is run (using client.js)
+client.js is chess game logic for each player and listens to sockets
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Code you may wanna change:
+Port can be changed in server.js:endoffile
+Time for both players can be changed in server.js:line23

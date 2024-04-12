@@ -35,10 +35,8 @@ socket.on('move', function(data) {
   console.log('Move received from server:', data.move);
   game.move(data.move);
   board.position(game.fen());
-
-  // Highlight the destination square
-  highlightDestinationSquare(data.move)
   updateGame();
+  highlightDestinationSquare(data.move);
 });
 
 // Listen for reset game
@@ -62,6 +60,17 @@ socket.on('reject', function() {
 socket.on('waitingForPlayer', function() {
   $gameStatus.html('Waiting for new player to join...');
 });
+
+socket.on('timer', function(data) {
+  if (playerColor === 'black') {
+      $('#topTimer').html('White Time: ' + data.whiteTime + 's');
+      $('#bottomTimer').html('Black Time: ' + data.blackTime + 's');
+  } else if (playerColor === 'white') {
+      $('#topTimer').html('Black Time: ' + data.blackTime + 's');
+      $('#bottomTimer').html('White Time: ' + data.whiteTime + 's');
+  }
+});
+
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	
 // Chess functions

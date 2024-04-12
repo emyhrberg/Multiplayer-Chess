@@ -19,6 +19,11 @@ app.get('/', (req, res) => {
 // Important part of the code
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+// Time
+let whiteTime = 100;
+let blackTime = 100;
+let currentPlayer = 'white';
+
 // Variables
 let whiteSocket = null;
 let blackSocket = null;
@@ -53,8 +58,10 @@ io.on('connection', function(socket) {
     // Listen for moves and broadcast them to the other player
     socket.on('move', function(data) {
       // received a move from client
-      console.log(socket.playerColor, 'player moved: ', data);
+      console.log(socket.playerColor, 'player moved: ', data.move);
       socket.broadcast.emit('move', data);
+      currentPlayer = (currentPlayer === 'white') ? 'black' : 'white';
+      updateTimer();
     })
 
     // Listen for disconnects
@@ -74,6 +81,18 @@ io.on('connection', function(socket) {
       if (blackSocket) blackSocket.emit('resetGame');
       io.emit('waitingForPlayer');
   }
+
+  // update timer
+  function updateTimer() {
+    let intervalId = setInterval(() => {
+        if (currentPlayer === 'white') {
+            whiteTime -= 1;
+        } else {
+            blackTime -= 1;
+        }
+        io.emit('timer', { whiteTime, blackTime });
+    }, 1000);
+}
 });
 
 // Listen on this port
