@@ -3,8 +3,13 @@
 <head>
     <title>Chess</title>
 
+    <!-- Font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+
     <!-- Import javascript libraries -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css">
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.12.1/chess.min.js"></script>
@@ -14,13 +19,13 @@
 <body>
 
     <!-- show the chess board -->
-    <div style="display: flex; flex-direction: column; align-items: flex-start;">
-        <div id="topTimer" style="font-size: 32px; margin: 10px; text-align: center; width: 400px;"></div>
-        <div id="myBoard" style="width: 400px"></div>
-        <div id="botTimer" style="font-size: 32px; margin: 10px; text-align: center; width: 400px;"></div>
+    <div class="container">
+        <div id="topTimer" class="timer"></div>
+        <div id="myBoard" style="width: 400px;"></div>
+        <div id="botTimer" class="timer"></div>
     </div>
 
     <!-- chess game logic -->
-    <script src="chess.js"></script>
+    <script src="index.js"></script>
     
 </html>
