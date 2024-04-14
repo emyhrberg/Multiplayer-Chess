@@ -2,14 +2,42 @@
 const socket = io();
 var playerColor = null;
 
+// When a player joins, we receive a color from the server
 socket.on('playerJoined', (color) => {
     playerColor = color;
-    if (color === 'black') board.flip();
+    console.log("got color: ", color);
+    if (color === 'black') {
+        board.flip();
+        document.getElementById('topTimer').innerText = "White Time: 30.0s";
+        document.getElementById('botTimer').innerText = "Black Time: 30.0s";
+    } else if (color === 'white') {
+        document.getElementById('topTimer').innerText = "Black Time: 30.0s";
+        document.getElementById('botTimer').innerText = "White Time: 30.0s";
+    }
 });
 
+// When we receive a move from the server
 socket.on('move', (move) => {
     game.move(move);
     board.position(game.fen());
+});
+
+// When we receive a time sync request from the server (all the time)
+// Update the timer on the client side for the other player
+socket.on('timer', (times) => {
+    console.log("Received times: ", times);
+
+    if (playerColor === 'white') {
+        document.getElementById('botTimer').innerText = "White Time: " + times.white + "s";
+        document.getElementById('topTimer').innerText = "Black Time: " + times.black + "s";
+    } else if (playerColor === 'black') {
+        document.getElementById('topTimer').innerText = "White Time: " + times.white + "s";
+        document.getElementById('botTimer').innerText = "Black Time: " + times.black + "s";
+    }
+});
+
+socket.on('game-over', (message) => {
+    alert(message); // Display an alert to the user
 });
 
 // CHESS
@@ -26,6 +54,15 @@ var boardConfig = {
 
 var board = Chessboard('myBoard', boardConfig);
 
+function onDrop(source, target) {
+    // see if the move is legal
+    var move = game.move({ from: source, to: target, promotion: 'q'});
+    if (move === null) return 'snapback'; // illegal move
+
+    // send the move to the server
+    socket.emit('move', move);
+}
+
 function onDragStart(source, piece, position, orientation) {
     // game over
     if (game.game_over()) return false;
@@ -37,18 +74,6 @@ function onDragStart(source, piece, position, orientation) {
     // only allow the player to move on their turn
     if (playerColor === 'white' && game.turn() === 'b') return false;
     if (playerColor === 'black' && game.turn() === 'w') return false;
-}
-
-
-function onDrop(source, target) {
-    // see if the move is legal
-    var move = game.move({ from: source, to: target, promotion: 'q'});
-
-    // illegal move
-    if (move === null) return 'snapback';
-
-    // send the move to the server
-    socket.emit('move', move);
 }
 
 function onSnapEnd() {
